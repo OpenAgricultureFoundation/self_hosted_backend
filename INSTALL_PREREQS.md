@@ -13,3 +13,8 @@ By default, you need to use the `sudo` command to run docker, if you'd like to u
 
 ### Install Docker-Compose
 Follow the steps for you platform on the offical [docker-compose install page](https://docs.docker.com/compose/install/#install-compose)
+
+## Optional 
+
+### Portainer
+A nice utility to monitor Docker images and containers, etc is [Portainer CE](https://www.portainer.io/products-services/portainer-community-edition/). Portainer community edition can be run as docker images, and provides a web interface to interact with Docker. [Installation instructions found here](https://www.portainer.io/installation/)
