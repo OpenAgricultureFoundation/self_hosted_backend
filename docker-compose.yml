@@ -18,7 +18,7 @@ services:
     ports:
       - "8888:8888"
     volumes:
-      - openag_chronograf/data:/var/lib/chronograf
+      - openag_chronograf:/var/lib/chronograf
 
   # Eclipse mosquitto is our MQTT broker for communicating with PFCs
   mqtt:
@@ -31,5 +31,14 @@ services:
     ports:
       - "1883:1883"
       # - "9001:9001"
-    volumes:
-      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+    #volumes:
+    #  - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+
+  openag_mqtt_service:
+    build: mqtt-service
+
+
+volumes:
+  openag_influxdb:
+  openag_chronograf:
+  # openag_mqtt:
