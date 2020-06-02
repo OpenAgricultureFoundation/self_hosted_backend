@@ -1,0 +1,35 @@
+version: '3.5'
+services:
+  # InfluxDB is a time series database that will hold our measurements etc.
+  influxdb:
+    image: influxdb:latest
+    hostname: influx
+    container_name: influxdb
+    ports:
+      - "8086:8086"
+    volumes:
+      - openag_influxdb:/var/lib/influxdb
+
+  # Chronograph is a UI for querying/exploring Influx
+  chronograf:
+    image: chronograf:latest
+    hostname: chronograf
+    container_name: chronograf
+    ports:
+      - "8888:8888"
+    volumes:
+      - openag_chronograf/data:/var/lib/chronograf
+
+  # Eclipse mosquitto is our MQTT broker for communicating with PFCs
+  mqtt:
+    image: eclipse-mosquitto
+    hostname: mqtt
+    container_name: mqtt
+    expose:
+      - "1883"
+      # - "9001"
+    ports:
+      - "1883:1883"
+      # - "9001:9001"
+    volumes:
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
