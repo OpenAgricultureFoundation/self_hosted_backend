@@ -1,0 +1,3 @@
+[submodule "mqtt-service/src/mqtt-service"]
+	path = mqtt-service/src/mqtt-service
+	url = https://github.com/OpenAgricultureFoundation/mqtt-service.git
