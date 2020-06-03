@@ -1,3 +1,5 @@
 # ignore IDE setup
 .idea
 *.iml
+
+venv
