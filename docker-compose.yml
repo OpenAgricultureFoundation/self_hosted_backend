@@ -37,8 +37,18 @@ services:
   openag_mqtt_service:
     build: mqtt-service
 
+  openag_upload_file_service:
+    build: upload-file-service
+    expose:
+      - "80"
+    ports:
+      - "80:80"
+    volumes:
+    - openag_uploaded_images:/data/images
+
 
 volumes:
   openag_influxdb:
   openag_chronograf:
+  openag_uploaded_images:
   # openag_mqtt:
