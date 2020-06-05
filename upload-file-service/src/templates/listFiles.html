@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image File List</title>
+</head>
+<body>
+{% for file in filelist %}
+<a href="/images/{{file}}">{{file}}</a><br/>
+{% endfor %}
+</body>
+</html>

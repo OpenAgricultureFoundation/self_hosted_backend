@@ -1,4 +1,4 @@
-from flask import Flask, request, Response
+from flask import Flask, request, Response, render_template
 from werkzeug.utils import secure_filename
 from werkzeug.middleware.shared_data import SharedDataMiddleware
 import os
@@ -44,6 +44,11 @@ def save_image():
         return success_response(message="File Upload Successful")
     else:
         return error_response(message="Invalid File Type")
+
+@app.route('/listImages', methods=['GET'])
+def list_images():
+    filelist = os.listdir(app.config['UPLOAD_FOLDER'])
+    return render_template("listFiles.html",filelist=filelist)
 
 
 if __name__ == '__main__':
