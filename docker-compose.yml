@@ -36,6 +36,8 @@ services:
 
   openag_mqtt_service:
     build: mqtt-service
+    depends_on:
+      - mqtt
 
   openag_upload_file_service:
     build: upload-file-service
