@@ -1,14 +1,21 @@
 from flask import Flask, request, Response, render_template
 from werkzeug.utils import secure_filename
 from werkzeug.middleware.shared_data import SharedDataMiddleware
+
 import os
 import json
+
+from data_api import data_api
 
 UPLOAD_FOLDER = "/data/images"
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
+app.register_blueprint(blueprint=data_api)
+
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['IMAGES_URL'] = "/images/"  # for use in Blueprints
+
 app.add_url_rule('/images/<filename>', 'uploaded_file',
                  build_only=True)
 app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {

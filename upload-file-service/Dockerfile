@@ -21,7 +21,8 @@ RUN pip install -r requirements.txt
 
 # copy project
 COPY src /usr/src/app/
+COPY gunicorn_config.py /usr/src/app/gunicorn_config.py
 
 EXPOSE 80
 
-CMD ["gunicorn", "--bind", "0.0.0.0:80", "app:app"]
+CMD ["gunicorn", "--config", "gunicorn_config.py", "app:app"]
