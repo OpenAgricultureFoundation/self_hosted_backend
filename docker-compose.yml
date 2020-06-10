@@ -1,5 +1,13 @@
 version: '3.5'
 services:
+  # If you want to specify where the data for a service is stored (i.e. specific drive, etc.) Change the
+  # volume definition for the service. For example to put the influxdb data somewhere in the host change:
+  #   volumes:
+  #     - openag_influxdb:/var/lib/influxdb
+  # to:
+  #   volumes:
+  #     - <path to existing directory on host>:/var/lib/influxdb
+
   # InfluxDB is a time series database that will hold our measurements etc.
   influxdb:
     image: influxdb:latest
@@ -45,6 +53,8 @@ services:
       - "80"
     ports:
       - "80:80"
+    tmpfs:
+      - /tmp/downloads
     volumes:
     - openag_uploaded_images:/data/images
 

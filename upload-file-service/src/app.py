@@ -1,4 +1,5 @@
 from flask import Flask, request, Response, render_template
+from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from werkzeug.middleware.shared_data import SharedDataMiddleware
 
@@ -7,20 +8,22 @@ import json
 
 from data_api import data_api
 
-UPLOAD_FOLDER = "/data/images"
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
-
-app = Flask(__name__)
+app = Flask(__name__, static_folder='./build', static_url_path='/')
+app.config.from_pyfile('config.py')
 app.register_blueprint(blueprint=data_api)
 
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['IMAGES_URL'] = "/images/"  # for use in Blueprints
+  # for use in Blueprints
 
 app.add_url_rule('/images/<filename>', 'uploaded_file',
                  build_only=True)
 app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
     '/images':  app.config['UPLOAD_FOLDER']
 })
+app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
+    '/data':  app.config['DATA_FOLDER']
+})
+
+CORS(app)
 
 
 def success_response(**kwargs):
@@ -37,7 +40,7 @@ def error_response(**kwargs):
 
 def allowed_file(filename):
     return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+           filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
 
 @app.route('/saveImage', methods=['POST'])
@@ -56,6 +59,10 @@ def save_image():
 def list_images():
     filelist = os.listdir(app.config['UPLOAD_FOLDER'])
     return render_template("listFiles.html",filelist=filelist)
+
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
 
 
 if __name__ == '__main__':

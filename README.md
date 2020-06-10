@@ -34,11 +34,33 @@ variant of the OpenAg DataAPI service, but it will have to be modified to use In
 
 ## Running
 ### First Start - Server side
-**TODO**: Fill in more detail
 
+ 1. [Install Perquisites](INSTALL_PREREQS.md) if you have't yet.
  1. `docker-compose up` will build and start the docker instances. (First time may take a few moments)
- 2. Create an `openag_local` database in InfluxDB via Chronograf
+ 2. Create an `openag_local` database in InfluxDB via Chronograf (See Below)
  3. Setup dashboards / document using Chronograf with PFC data
+ 
+### Creating a DB with Chronograf
+Once you've got the docker-compose setup running. You can go to Chronograph on you server's prot `8888`. 
+![Initial Chronograf](doc_images/chronograf_start.png)
+
+Once you click `Get Started`, you'll be presented with a screen asking for connection information. 
+Set `Connection URL` to `http://influxdb:8086`. You can name the connection whatever you want,
+in the image it is `OpenAg Local DB`. Since we are not using Telegraf, you can leave
+that field blank.
+
+![Connection Information](doc_images/chronograph_connection_info.png)
+
+After adding the connection, you can skip adding a Dashboard or the Kapacitor connection, and
+just click `View All Connections`. You'll now want to click `InfluxDB Admin` on the sidebar.
+
+![InfluxDB Admin](doc_images/influxdb_admin.png)
+
+On the admin screen, click `+ Create Database`, and enter `openag_local` as the name.
+![Add Database](doc_images/add_database.png)
+
+You are now set to start sending data from the PFCs. Once you have data in your DB, you can use the `Explore` side tab 
+to start looking at your data with graphs and queries. (See [Getting Started with Chronograf](https://docs.influxdata.com/chronograf/v1.8/introduction/getting-started/))
  
 ### PFC setup
 In order to use this backend with PFCs, you need to run a modified version of the [openag-device-software]() code.
