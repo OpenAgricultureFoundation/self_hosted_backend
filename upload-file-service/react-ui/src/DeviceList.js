@@ -13,14 +13,14 @@ function DeviceList() {
 
     useEffect(() => {
         if (fetchDevice.trim().length != 0){
-            fetch("http://localhost:5000/api/lastSensorReadings/" + fetchDevice.trim())
+            fetch("/api/lastSensorReadings/" + fetchDevice.trim())
                 .then(res => res.json())
                 .then((data) => {setDeviceData(data)});
         }
     }, [fetchDevice, deviceLoadCount])
 
     useEffect(() => {
-        fetch("http://localhost:5000/api/devices").then(res => res.json()).then((data) => {
+        fetch("/api/devices").then(res => res.json()).then((data) => {
             setDeviceList(data);
         });
     }, [loadCount]);

@@ -14,7 +14,7 @@ function DownloadData(props){
     const [downloadLink, setDownloadLink] = useState(null)
 
     useEffect(() => {
-        fetch("http://localhost:5000/api/devices").then(res => res.json()).then((data) => {
+        fetch("/api/devices").then(res => res.json()).then((data) => {
             setDeviceList(data);
         });
     }, [loadCount]);
@@ -52,7 +52,7 @@ function DownloadData(props){
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: data };
-        fetch('http://localhost:5000/api/downloadData', requestOptions)
+        fetch('/api/downloadData', requestOptions)
             .then(response => response.json())
             .then(data => {setDownloadLink(data.url); setSubmiteDisabled(false)});
     }
