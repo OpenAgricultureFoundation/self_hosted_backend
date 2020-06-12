@@ -42,11 +42,14 @@ variant of the OpenAg DataAPI service, but it will have to be modified to use In
  4. Once everything is running, and you have PFCs reporting data, you should be able to point a browser at your server (`http://server-ip/`) and you'll be presented with a simple UI to see the state of your PFCs and download data.
  
 ### PFC setup
-In order to use this backend with PFCs, you need to run a modified version of the [openag-device-software]() code.
+In order to use this backend with PFCs, you need to run a modified version of the [openag-device-software](https://github.com/OpenAgricultureFoundation/openag-device-software) code.
 
 #### Switch to the `local_mqtt` branch of the `openag-device-software` git project.
-
-**TODO**: setup the `local_mqtt` branch on github
+First you'll want to fetch the remote code if you've already cloned it:
+From inside the `openag-device-software` directory run the command: `git fetch`
+Then you'll want to checkout the `local_mqtt` branch:
+From inside the `openag-device-software` directory run the command: `git branch local_mqtt`
+Now you're ready to configure the software to point to your local backend.
 
 #### Setup `local_mqtt.json` for PubSub
 Rather than sending MQTT messages up to the Google Cloud, PFCs will want to hit our
@@ -73,7 +76,7 @@ HTTP post, rather than using HTTPS. So, you'll want to set it to something like:
 IMAGE_UPLOAD_URL = 'http://192.168.1.27/saveImage'
 ```
  
- 
+ At this point, you're ready to run the software on your PFCs. If you're running balena, you can push the firmware up through it's command line interface, or if you're deployed the code directly onto your RaspberryPi computer, you'll want to restart the device software on the machine. Just make sure you've already configured your backend by creating the `openag_local` database inside of InfluxDB.
  
 ### Creating a DB with Chronograf
 Once you've got the docker-compose setup running. You can go to Chronograph on you server's prot `8888`. 
