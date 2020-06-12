@@ -13,6 +13,7 @@ services:
     image: influxdb:latest
     hostname: influx
     container_name: influxdb
+    restart: unless-stopped
     ports:
       - "8086:8086"
     volumes:
@@ -23,6 +24,7 @@ services:
     image: chronograf:latest
     hostname: chronograf
     container_name: chronograf
+    restart: unless-stopped
     ports:
       - "8888:8888"
     volumes:
@@ -33,6 +35,7 @@ services:
     image: eclipse-mosquitto
     hostname: mqtt
     container_name: mqtt
+    restart: unless-stopped
     expose:
       - "1883"
       # - "9001"
@@ -44,11 +47,13 @@ services:
 
   openag_mqtt_service:
     build: mqtt-service
+    restart: unless-stopped
     depends_on:
       - mqtt
 
   openag_upload_file_service:
     build: upload-file-service
+    restart: unless-stopped
     expose:
       - "80"
     ports:
