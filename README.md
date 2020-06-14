@@ -26,11 +26,10 @@ is completly contained in this project (i.e. not a seperate Github project), but
 setup as it is a very simple Flask application.
 
 #### DataAPI service
-**TODO**: Need to set up the service to handle images being uploaded from the PFCs. Most likely this will be a
-variant of the OpenAg DataAPI service, but it will have to be modified to use InfluxDB.
+A light weight [Flask](https://flask.palletsprojects.com/en/1.1.x/) Data API has been created under the `upload-file-service` for getting a list of machines seen, their latest readings, and the ability to download data over a span of time in CSV format. *Please Note*: There is zero authentication or security on this API.
 
 #### Control UI
-**TODO**: A UI to control/monitor all PFCs. This will start as the EDU UI most likely.
+A simple [ReactJS](https://reactjs.org/) front end has been included in the `upload-file-service` docker image to access the information available from the DataAPI. If you point a browser to your host machine's port 80, it will load up. *Please Note*: There is zero authentication or security on this UI or the underlaying API.
 
 ## Running
 ### First Start - Server side
